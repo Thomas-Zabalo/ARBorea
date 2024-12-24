@@ -23,6 +23,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow ARBorea to access your camera",
+          "microphonePermission": "Allow ARBorea to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ]
   }
 }
