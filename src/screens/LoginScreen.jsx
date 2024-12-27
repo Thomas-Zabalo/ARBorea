@@ -9,29 +9,17 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 
-// Définition des types pour l'état du formulaire
-interface FormState {
-    username: string;
-    password: string;
-}
-
-type RootParamList = {
-    Home: undefined;
-    AuthScreen: undefined;
-};
-
 export default function AuthScreen() {
-    const [isLogin, setIsLogin] = useState<boolean>(true);
-    const [form, setForm] = useState<FormState>({
+    const [isLogin, setIsLogin] = useState(true);
+    const [form, setForm] = useState({
         username: '',
         password: '',
     });
-    const [errorMessage, setErrorMessage] = useState<string>('');
-    const navigation = useNavigation<StackNavigationProp<RootParamList, 'AuthScreen'>>();
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigation = useNavigation();
 
     const toggleAuthMode = () => {
         setIsLogin(!isLogin);
@@ -72,7 +60,7 @@ export default function AuthScreen() {
         }
     };
 
-    const presentToast = (message: string) => {
+    const presentToast = (message) => {
         Alert.alert('Erreur', message, [{ text: 'OK' }]);
     };
 

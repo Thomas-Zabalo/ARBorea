@@ -2,15 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Switch } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface User {
-  name: string;
-  email: string;
-  avatar: string;
-}
 
 export default function ProfileScreen() {
   // État pour savoir si le mode sombre est activé ou non
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Fonction pour récupérer la préférence de thème de AsyncStorage
   useEffect(() => {
@@ -28,7 +23,7 @@ export default function ProfileScreen() {
   }, []);
 
   // Fonction pour sauvegarder la préférence du thème
-  const saveThemePreference = async (value: boolean): Promise<void> => {
+  const saveThemePreference = async (value) => {
     try {
       await AsyncStorage.setItem('theme', value ? 'dark' : 'light');
     } catch (error) {
@@ -37,7 +32,7 @@ export default function ProfileScreen() {
   };
 
   // Fonction pour basculer entre les modes
-  const toggleSwitch = (value: boolean): void => {
+  const toggleSwitch = (value) => {
     setIsDarkMode(value);
     saveThemePreference(value); // Sauvegarde le thème
   };
@@ -47,7 +42,7 @@ export default function ProfileScreen() {
   const textStyle = isDarkMode ? styles.textDark : styles.textLight;
 
   // Exemple d'informations de l'utilisateur
-  const user: User = {
+  const user = {
     name: 'John Doe',
     email: 'johndoe@example.com',
     avatar: 'https://randomuser.me/api/portraits/men/1.jpg',

@@ -1,28 +1,15 @@
-import React from 'react';
-import { StyleSheet, View, Button, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { StyleSheet, View, Button, TouchableOpacity } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { GestureHandlerRootView, PanGestureHandler, GestureHandlerGestureEvent } from 'react-native-gesture-handler';
-import { StackNavigationProp } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/FontAwesome';  // Icônes FontAwesome
 
+export default function HomeScreen({ navigation }) {
 
-type RootParamList = {
-  Profil: undefined;
-};
-
-type HomeScreenNavigationProp = StackNavigationProp<RootParamList, 'Profil'>;
-
-interface HomeProps {
-  navigation: HomeScreenNavigationProp;
-}
-
-const Home: React.FC<HomeProps> = ({ navigation }) => {
   const [permission, requestPermission] = useCameraPermissions();
 
   if (!permission) {
-    return <View />; // Attente de la permission
+    return <View />;
   }
-
   if (!permission.granted) {
     return (
       <View style={styles.container}>
@@ -31,16 +18,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       </View>
     );
   }
-
   // Gérer le swipe
-  const handleSwipe = (event: GestureHandlerGestureEvent) => {
+  const handleSwipe = (event) => {
     const { translationX } = event.nativeEvent;
-
-    if (typeof translationX === 'number' && translationX < -100) {
-      navigation.navigate('Profil'); // Naviguer vers Profil si swipe à gauche
+    if (translationX < -100) {
+      navigation.navigate('Profil');
     }
   };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PanGestureHandler onGestureEvent={handleSwipe}>
@@ -59,12 +43,20 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       </PanGestureHandler>
     </GestureHandlerRootView>
   );
-};
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  containerInfo: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  message: {
+    textAlign: 'center',
   },
   camera: {
     flex: 1,
@@ -80,8 +72,7 @@ const styles = StyleSheet.create({
   iconButton: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 50,
-    paddingVertical: 13,
-    paddingHorizontal: 15,
+    padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -90,9 +81,4 @@ const styles = StyleSheet.create({
     top: 50,
     right: 20,
   },
-  message: {
-    textAlign: 'center',
-  },
 });
-
-export default Home;

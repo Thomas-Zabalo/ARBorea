@@ -1,19 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-// Définition du type de navigation
-type TimerScreenNavigationProp = NativeStackNavigationProp<
-  { Home: undefined; Login: undefined },
-  'Home'
->;
-
-interface TimerScreenProps {
-  navigation: TimerScreenNavigationProp;
-}
-
-export default function TimerScreen({ navigation }: TimerScreenProps) {
+export default function TimerScreen({ navigation }) {
   useEffect(() => {
     // Vérifier le token après un délai
     const timer = setTimeout(async () => {
