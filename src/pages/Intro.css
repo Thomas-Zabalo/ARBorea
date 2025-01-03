@@ -1,0 +1,50 @@
+@import '../theme/variables.css';
+
+.slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 10px;
+    height: 80vh !important;
+}
+
+.image {
+    height: 200px !important;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.heading {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.caption {
+    margin: 0px 10px;
+}
+
+.swiper-pagination {
+    margin-bottom: -10px;
+}
+
+.swiper-pagination-bullet {
+    background: var(--primary-color) !important;
+    height: 8px !important;
+    width: 10px !important;
+    border-radius: 10px !important;
+    margin: 0px 5px !important;
+}
+
+.swiper-pagination-bullet-active {
+    border-radius: 10px !important;
+    width: 30px !important;
+}
+
+.button::part(native) {
+    color: var(--primary-color) !important;
+    font-weight: 500 !important;
+}
