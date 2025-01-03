@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function TimerScreen({ navigation }) {
+export default function SplashScreen({ navigation }) {
   useEffect(() => {
     // Vérifier le token après un délai
     const timer = setTimeout(async () => {

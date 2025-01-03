@@ -23,12 +23,10 @@
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-safe-area-context": "^5.0.0",
-    "react-native-screens": "^4.4.0",
-    "three": "^0.171.0"
+    "react-native-screens": "^4.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "typescript": "^5.3.3"
+    "@babel/core": "^7.20.0"
   },
   "private": true
 }

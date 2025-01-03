@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Écrans de l'application
 import HomeScreen from './src/screens/HomeScreen';
-import TimerScreen from './src/screens/TimerScreen';
+import SplashScreen from './src/screens/SplashScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import Introslider from './src/screens/Introslider';
@@ -41,7 +41,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialRoute}>
-        <Stack.Screen name="Timer" component={TimerScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Timer" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Profil" component={ProfileScreen} />
