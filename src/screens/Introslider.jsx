@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { COLORS, SIZES } from '../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,31 +7,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const slides = [
     {
         key: 1,
-        title: 'Title 1',
-        text: 'Description.\nSay something cool',
-        image: require('../../assets/logo.png'),
+        title: "Activer la caméra",
+        text: "Pour démarrer, autorisez l'accès à votre caméra afin de scanner les marqueurs en réalité augmentée.",
+        image: require("../../assets/undraw_camera_jfaj.png"),
     },
     {
         key: 2,
-        title: 'Title 2',
-        text: 'Other cool stuff',
-        image: require('../../assets/logo.png'),
+        title: "Scanner un QR Code",
+        text: "Scannez le QR code fourni pour charger un modèle 3D ou un contenu interactif.",
+        image: require("../../assets/undraw_taking-photo_s23u.png"),
     },
     {
         key: 3,
-        title: 'Rocket guy',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-        image: require('../../assets/logo.png'),
+        title: "Explorer en Réalité Virtuelle",
+        text:
+            "Plongez dans l'expérience de réalité virtuelle et découvrez des modèles 3D immersifs.",
+        image: require("../../assets/undraw_augmented-reality_3ie0.png"),
     },
-    {
-        key: 4,
-        title: 'Rocket guy',
-        text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-        image: require('../../assets/logo.png'),
-    }
 ];
 
 export default function Introslider({ navigation }) {
+    useEffect(() => {
+        const checkFirstLaunch = async () => {
+            const isFirstLaunch = await AsyncStorage.getItem('isFirstLaunch');
+            if (!isFirstLaunch) {
+                await AsyncStorage.setItem('isFirstLaunch', 'false');
+            }
+        };
+
+        checkFirstLaunch();
+    }, []);
 
     const buttonLabel = (label) => {
         return (
@@ -48,7 +53,7 @@ export default function Introslider({ navigation }) {
     };
 
     return (
-        <AppIntroSlider
+        <AppIntroSlider style={{ backgroundColor: "white" }}
             data={slides}
             renderItem={({ item }) => {
                 return (
@@ -63,7 +68,7 @@ export default function Introslider({ navigation }) {
                         <Image
                             source={item.image}
                             style={{
-                                width: SIZES.width * 0.8, // Correction pour le width
+                                width: SIZES.width * 0.8,
                                 height: 400,
                             }}
                             resizeMode="contain"

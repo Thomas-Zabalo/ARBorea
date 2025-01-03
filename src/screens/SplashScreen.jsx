@@ -7,7 +7,7 @@ export default function SplashScreen({ navigation }) {
     // Vérifier le token après un délai
     const timer = setTimeout(async () => {
       try {
-        const token = await AsyncStorage.getItem('access_token');
+        const token = await AsyncStorage.getItem('c');
         if (token) {
           navigation.replace('Home');
         } else {

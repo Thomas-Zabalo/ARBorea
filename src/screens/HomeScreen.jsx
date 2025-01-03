@@ -1,72 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';  // Icônes FontAwesome
-import { useNavigation } from '@react-navigation/native';
 
-export default function HomeScreen() {
-  const navigation = useNavigation();
-  const [hasPermission, setHasPermission] = useState(false); // Etat pour la permission
-  const [permission, requestPermission] = useCameraPermissions(); // Permissions caméra
 
-  // Demander la permission de la caméra au lancement
-  useEffect(() => {
-    const getPermission = async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    };
+export default function Home({ navigation }) {
 
-    getPermission();
-  }, []);
+  const [permission, requestPermission] = useCameraPermissions();
 
-  if (!hasPermission) {
+  if (!permission) {
+    return <View />;
+  }
+
+  if (!permission.granted) {
     return (
       <View style={styles.container}>
-        <Text style={styles.message}>
-          Nous avons besoin que vous activiez votre caméra pour accéder à l'application.
-        </Text>
-        <Button onPress={() => requestPermission()} title="Activer la caméra" />
+        <Text style={styles.message}>Nous avons besoin que vous activiez votre caméra pour accéder à l'application.</Text>
+        <Button onPress={requestPermission} title="Activer la caméra" />
       </View>
     );
   }
 
-  // Gérer le swipe
-  const handleSwipe = (event) => {
-    const { translationX } = event.nativeEvent;
-    if (translationX < -100) {
-      navigation.navigate('Profil');
-    }
-  };
-
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <PanGestureHandler onGestureEvent={handleSwipe}>
-        <View style={styles.container}>
-          <Camera style={styles.camera}>
-            <View style={styles.iconContainer}>
-              <TouchableOpacity
-                style={[styles.iconButton, styles.TopRight]}
-                onPress={() => navigation.navigate('Profil')}
-              >
-                <Icon name="gear" size={30} color="white" />
-              </TouchableOpacity>
-            </View>
-          </Camera>
-        </View>
-      </PanGestureHandler>
-    </GestureHandlerRootView>
+    <View style={styles.container}>
+      <CameraView style={styles.camera}>
+      </CameraView>
+    </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
   },
+  containerInfo: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   message: {
     textAlign: 'center',
-    margin: 10,
   },
   camera: {
     flex: 1,
@@ -86,9 +59,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  TopLeft: {
+    position: 'absolute',
+    top: 50,
+    left: 30,
+  },
   TopRight: {
     position: 'absolute',
     top: 50,
-    right: 20,
+    right: 30,
+  },
+  BottomLeft: {
+    position: 'absolute',
+    bottom: 30,
+    left: 30,
+  },
+  BottomRight: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+  },
+  webview: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
+  infoPanel: {
+    position: 'absolute',
+    bottom: 50,
+    left: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 10,
+    borderRadius: 8,
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
