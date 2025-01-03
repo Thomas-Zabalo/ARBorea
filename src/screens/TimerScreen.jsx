@@ -11,11 +11,11 @@ export default function TimerScreen({ navigation }) {
         if (token) {
           navigation.replace('Home');
         } else {
-          navigation.replace('Login');
+          navigation.replace('Intro');
         }
       } catch (error) {
         console.error('Erreur lors de la vérification du token :', error);
-        navigation.replace('Login');
+        navigation.replace('Intro');
       }
     }, 1000);
 

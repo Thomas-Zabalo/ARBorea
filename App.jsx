@@ -8,6 +8,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import TimerScreen from './src/screens/TimerScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import Introslider from './src/screens/Introslider';
 
 
 const Stack = createStackNavigator();
@@ -44,6 +45,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Profil" component={ProfileScreen} />
+        <Stack.Screen name="Intro" component={Introslider} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

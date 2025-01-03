@@ -4,11 +4,11 @@
     "slug": "ARBorea",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -25,8 +25,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.ARBorea"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,12 +34,11 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "cameraPermission": "Allow ARBorea to access your camera",
+          "microphonePermission": "Allow ARBorea to access your microphone",
           "recordAudioAndroid": true
         }
-      ],
-      "expo-asset"
+      ]
     ]
   }
 }

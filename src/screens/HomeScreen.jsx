@@ -1,15 +1,31 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Button, TouchableOpacity } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';  // Icônes FontAwesome
+import { useNavigation } from '@react-navigation/native';
+import { GLView } from 'expo-gl';
+import { Renderer } from 'expo-three';
+import * as THREE from 'three';
 
-export default function HomeScreen({ navigation }) {
-
+export default function HomeScreen () {
+  const navigation = useNavigation();
   const [permission, requestPermission] = useCameraPermissions();
+
+
+  useEffect(() => {
+    const requestPermission = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    };
+
+    requestPermission();
+  }, []);
 
   if (!permission) {
     return <View />;
   }
+
   if (!permission.granted) {
     return (
       <View style={styles.container}>
@@ -18,6 +34,7 @@ export default function HomeScreen({ navigation }) {
       </View>
     );
   }
+
   // Gérer le swipe
   const handleSwipe = (event) => {
     const { translationX } = event.nativeEvent;
@@ -25,6 +42,38 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate('Profil');
     }
   };
+
+
+  const onContextCreate = async (gl) => {
+    const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
+
+    const renderer = new Renderer({ gl });
+    renderer.setSize(width, height);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Ajouter un cube 3D
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Animation du cube
+    const animate = () => {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+      gl.endFrameEXP();
+    };
+
+    animate();
+  };
+
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PanGestureHandler onGestureEvent={handleSwipe}>
@@ -40,8 +89,13 @@ export default function HomeScreen({ navigation }) {
             </View>
           </CameraView>
         </View>
-      </PanGestureHandler>
-    </GestureHandlerRootView>
+        <GLView
+          style={styles.glview}
+          onContextCreate={onContextCreate}
+          ref={glRef}
+        />
+    </PanGestureHandler>
+    </GestureHandlerRootView >
   );
 }
 const styles = StyleSheet.create({
