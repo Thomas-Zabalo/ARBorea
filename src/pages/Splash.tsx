@@ -16,13 +16,23 @@ const Splash: React.FC = () => {
     };
 
     return (
+
         <IonPage>
             <IonContent className="splash-content">
-                <IonImg
-                    src="../../resources/logo.png"
-                    alt="Logo de l'application"
-                    className="splash-logo"
-                />
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100vh',
+                    }}
+                >
+                    <img
+                        src="../../resources/logo.png"
+                        alt="Logo de l'application"
+                        style={{ maxWidth: '100%', height: '40%' }} 
+                    />
+                </div>
             </IonContent>
         </IonPage>
     );

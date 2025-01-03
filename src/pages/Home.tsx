@@ -1,16 +1,39 @@
-import React from 'react';
-import { IonPage, IonContent } from '@ionic/react';
-
+import React, { useState } from 'react';
+import { IonPage, IonContent, IonButton, IonModal } from '@ionic/react';
 
 const Home: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-box position="0 0.5 0" rotation="0 45 45" color="#4CC3D9" scale="2 2 2"></a-box>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
+    <IonPage>
+      <IonContent>
+        {/* Contenu principal */}
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+          <h1>Welcome to the Blank Page</h1>
+          <p>This is a blank page with a modal example.</p>
+        </div>
+
+        {/* Bouton pour ouvrir le modal */}
+        <IonButton
+          expand="block"
+          onClick={() => setShowModal(true)}
+          style={{ position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}
+        >
+          Open Modal
+        </IonButton>
+
+        {/* Modal */}
+        <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
+          <IonContent>
+            <div style={{ padding: '20px', textAlign: 'center' }}>
+              <h2>Modal Content</h2>
+              <p>This is your modal content.</p>
+              <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+            </div>
+          </IonContent>
+        </IonModal>
+      </IonContent>
+    </IonPage>
   );
 };
 

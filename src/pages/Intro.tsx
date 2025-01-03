@@ -25,8 +25,10 @@ const Intro: React.FC = () => {
     const onNextClick = () => {
         if (slides.length > currentSlide + 1) {
             swiper.slideTo(currentSlide + 1);
-        } else if (currentSlide == 2) {
+        }
+        else if (currentSlide == 2) {
             setOnDone("Done")
+            onSkip()
         }
         else {
             onSkip()
@@ -50,22 +52,23 @@ const Intro: React.FC = () => {
 
     const slides = [
         {
-            title: "Effortless Payment Transfers",
-            caption: "Pay and transfer funds with ease anytime, anywhere.",
-            image: "./slider1.svg",
+            title: "Activer la caméra",
+            caption: "Pour démarrer, autorisez l'accès à votre caméra afin de scanner les marqueurs en réalité augmentée.",
+            image: "../../resources/undraw_camera_jfaj.svg",
         },
         {
-            title: "Smart Account Management",
-            caption: "Track your spending and manage your accounts effortlessly.",
-            image: "./slider2.svg",
+            title: "Scanner un QR Code",
+            caption: "Scannez le QR code fourni pour charger un modèle 3D ou un contenu interactif.",
+            image: "../../resources/undraw_taking-photo_s23u.svg",
         },
         {
-            title: "Enhanced Security Features",
+            title: "Explorer en Réalité Virtuelle",
             caption:
-                "Keep your financial information safe with advanced security measures.",
-            image: "./slider3.svg",
+                "Plongez dans l'expérience de réalité virtuelle et découvrez des modèles 3D immersifs.",
+            image: "../../resources/undraw_augmented-reality_3ie0.svg"
         },
     ];
+
     return (
         <IonPage>
             <IonContent>
